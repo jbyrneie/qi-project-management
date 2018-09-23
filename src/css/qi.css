@@ -1,3 +1,6 @@
+.container {
+  margin: 0 auto;
+}
 .clearfix:after {
   content: "";
   display: table;
@@ -17,7 +20,7 @@
 
 .appBar {
   padding-top: 28px;
-  padding-bottom: 28px; 
+  padding-bottom: 28px;
   position: relative;
   border-bottom: 1px solid #e9ebed;
 }
@@ -58,21 +61,21 @@
   .sidebar-content{
     float: left;
     width: 6%;
-    height: 100%;
   }
   .main-content{
     width: 94%;
     float: right;
     background-color: #F8F8F8;
+    flex: 1;
   }
   .inner-content {
     margin: 30px;
-    background-color: white
+    background-color: white;
+    display: flex;
   }
   .container{
     padding-left: 15px;
     padding-right: 15px;
+    display: flex;
   }
 }
-
-

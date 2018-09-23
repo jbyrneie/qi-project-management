@@ -4,7 +4,7 @@ export const commonButton ={
 }
 
 export const primaryButton ={
-  backgroundColor: 'yellow',
+  backgroundColor: '#f24c45',
   style: {border:'1px solid #f24c45'},
   labelStyle: {color:'#fff'},
   hoverColor: '#e61713'
@@ -25,9 +25,13 @@ export const defaultButton ={
 
 export const newSurveyButton ={
   backgroundColor: '#A9A9A9',
+  color: 'white',
   style: {border:'1px solid #0076B4'},
-  labelStyle: {color:'#fff', marginLeft: '10px', paddingTop: 10, paddingBottom: 10},
-  hoverColor: '#787878'
+  paddingTop: 10,
+  paddingBottom: 10,
+  paddingLeft:20,
+  paddingRight:20,
+  hoverColor: 'yellow'
 }
 
 export const warningButton ={
