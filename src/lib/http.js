@@ -6,16 +6,9 @@ function normalizePath(path) {
   const qs = QueryString.parse(window.location.search)
   const token = qs.jwt || qs.redirectToken || getCookie('jwt') || ''
   let query = ''
-  const impersonate = Cookie.get('impersonate')
-
+  
   if (!!token)
     query = (path.indexOf('?') === -1?'?':'&') + 'jwt=' + token
-
-  if (impersonate)
-    query += '&impersonate=' + impersonate
-
-  if(path.indexOf('https') === -1)
-    path = `${process.env.REACT_APP_CM_SETTINGS_SERVER}/${path}${query}`
 
   return path
 }
