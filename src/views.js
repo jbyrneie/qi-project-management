@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route } from 'mobx-router'
 import MyTasks from './components/MyTasks'
-import NewSurvey from './components/NewSurvey'
+import SurveyLead from './components/SurveyLead'
 
 let prefix=''
 if (process.env.NODE_ENV === 'production')
@@ -16,9 +16,9 @@ const views = {
     path: `${prefix}/`,
     component: <MyTasks/>
   }),
-  newSurvey: new Route({
-    path: `${prefix}/newSurvey`,
-    component: <NewSurvey/>
+  surveyLead: new Route({
+    path: `${prefix}/surveyLead`,
+    component: <SurveyLead/>
   }),
   catchall:new Route({
     path:`${prefix}/:def`,
