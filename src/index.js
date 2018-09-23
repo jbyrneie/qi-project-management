@@ -4,14 +4,14 @@ import {MobxRouter, startRouter} from 'mobx-router'
 import { Provider } from 'mobx-react'
 import views from './views'
 import { createStores } from './stores/index'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './css/index.css'
 
 const stores = createStores()
 
 stores.qiStore.getMyTasks()
 .then(() => {
-  
+
   let pathname = window.location.pathname.replace(/\/profile/g,'')
   const initialRoute = `${process.env.REACT_APP_QI_MOUNT}${pathname}${window.location.search}`
 
