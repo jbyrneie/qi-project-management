@@ -1,20 +1,16 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
-import Fade from 'react-fade-opacity';
 import AppBar from './AppBar'
 import SideBar from './SideBar'
 import _ from 'lodash'
 import views from '../views'
 
 // MUI
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 // Custom Styles
 import '../css/qi.css'
@@ -22,12 +18,6 @@ import '../css/qi.css'
 class Profile extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      in: true,
-      interval: 20,
-      delay: 50
-    };
   }
 
   componentWillMount() {
@@ -39,80 +29,33 @@ class Profile extends Component {
 
   _surveyDetails(tasks, event) {
     console.log('_surveyDetails: %s %s', JSON.stringify(event), JSON.stringify(tasks));
-    /*
     const {router: {goTo}} = this.props.store
     goTo(views.newSurvey, {}, this.props.store)
-    */
   }
-  
+
   render() {
-    const surveyInfo = this.props.store.qiStore.surveyInfo.info
-    const myTasks = [
-                        {
-                          project: 'John Smith',
-                          status: 'Employed',
-                          daysInStatus: 10,
-                          action: 'stuff'
-                        },
-                        {
-                          project: 'Randal White',
-                          status: 'Unemployed',
-                          daysInStatus: 10,
-                          action: 'stuff'
-                        },
-                        {
-                          project: 'Stephanie Sanders',
-                          status: 'Employed',
-                          daysInStatus: 10,
-                          action: 'stuff'
-                        },
-                        {
-                          project: 'Steve Brown',
-                          status: 'Employed',
-                          daysInStatus: 10,
-                          action: 'stuff'
-                        },
-                        {
-                          project: 'Joyce Whitten',
-                          status: 'Employed',
-                          daysInStatus: 10,
-                          action: 'stuff'
-                        },
-                        {
-                          project: 'Samuel Roberts',
-                          status: 'Employed',
-                          daysInStatus: 10,
-                          action: 'stuff'
-                        },
-                        {
-                          project: 'Adam Moore',
-                          status: 'Employed',
-                          daysInStatus: 10,
-                          action: 'stuff'
-                        },
-                      ];
-                          
+    const myTasks = this.props.store.qiStore.myTasks
+
     return(
-      <Fade {...this.state}>
         <div className='container clearfix'>
-          <SideBar/>
+          <SideBar myTasks={true}/>
           <div className='main-content'>
             <AppBar title='My Tasks' newSurvey={true}/>
             <div className='inner-content'>
               <div className='center-content'>
                 <Table selectable={true} onRowSelection={this._surveyDetails.bind(this, myTasks)}>
-                  <TableHeader style={{fontWeight: '900', color: 'yellow'}} 
-                    displaySelectAll={false} 
+                  <TableHead style={{fontWeight: '900', color: 'yellow'}}
+                    displaySelectAll={false}
                     adjustForCheckbox={false}
                     enableSelectAll={false}
                   >
                     <TableRow>
-                      <TableHeaderColumn style={{fontWeight: '900', color:'black'}}>PROJECT</TableHeaderColumn>
-                      <TableHeaderColumn style={{fontWeight: '900', color:'black'}}>STATUS</TableHeaderColumn>
-                      <TableHeaderColumn style={{fontWeight: '900', color:'black'}}>DAYS IN STATUS</TableHeaderColumn>
-                      <TableHeaderColumn style={{fontWeight: '900', color:'black'}}>ACTION</TableHeaderColumn>
+                      <TableCell style={{fontWeight: '900', color:'black'}}>PROJECT</TableCell>
+                      <TableCell style={{fontWeight: '900', color:'black'}}>STATUS</TableCell>
+                      <TableCell style={{fontWeight: '900', color:'black'}}>DAYS IN STATUS</TableCell>
+                      <TableCell style={{fontWeight: '900', color:'black'}}>ACTION</TableCell>
                     </TableRow>
-                  </TableHeader>
+                  </TableHead>
                   <TableBody
                     displayRowCheckbox={false}
                     deselectOnClickaway={true}
@@ -120,10 +63,10 @@ class Profile extends Component {
                   >
                     {myTasks.map((task, index) => (
                       <TableRow key={index}>
-                        <TableRowColumn style={{color: '#A0A0A0'}}>{task.project}</TableRowColumn>
-                        <TableRowColumn style={{color: '#A0A0A0'}}>{task.status}</TableRowColumn>
-                        <TableRowColumn style={{color: '#A0A0A0'}}>{task.daysInStatus}</TableRowColumn>
-                        <TableRowColumn style={{color: '#A0A0A0'}}>{task.action}</TableRowColumn>
+                        <TableCell style={{color: '#A0A0A0'}}>{task.project}</TableCell>
+                        <TableCell style={{color: '#A0A0A0'}}>{task.status}</TableCell>
+                        <TableCell style={{color: '#A0A0A0'}}>{task.daysInStatus}</TableCell>
+                        <TableCell style={{color: '#A0A0A0'}}>{task.action}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -132,7 +75,6 @@ class Profile extends Component {
             </div>
           </div>
         </div>
-      </Fade>
     )
   }
 }
