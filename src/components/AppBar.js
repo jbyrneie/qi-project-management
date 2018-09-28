@@ -5,7 +5,6 @@ import _ from 'lodash'
 
 // MUI
 import Button from '@material-ui/core/Button'
-import {newSurveyButton, commonButton} from '../styles/Buttons';
 
 // Custom styles
 import '../css/fonts.css'
@@ -19,35 +18,20 @@ class AppBar extends Component {
     }
   }
 
-  _surveyLead(event) {
-    console.log('New Survey clicked....');
-    const {router: {goTo}} = this.props.store
-    goTo(views.surveyLead, {}, this.props.store)
-  }
-
   render() {
-    const styles = theme => ({
-      button: {
-        margin: theme.spacing.unit,
-        backgroundColor: newSurveyButton.backgroundColor
-      },
-    });
-
     return(
-        <div className='container, appBar'>
+      <div className='container, appBar'>
+        <div>
           <span className='appBarTitle'>{this.props.title}</span>
-          {this.props.newSurvey?
-            <div className='navBar'>
-              <div className='appBarButton'>
-                <Button variant="contained" style={newSurveyButton} onClick={this._surveyLead.bind(this)}>
-                  New Survey
-                </Button>
-              </div>
-            </div>
-            :
-            null
-          }
         </div>
+        {this.props.subTitle?
+          <div>
+            <span className='appBarSubTitle'>{this.props.subTitle}</span>
+          </div>
+          :
+          null
+        }
+      </div>
     )
   }
 }
