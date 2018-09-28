@@ -47,6 +47,12 @@
   margin-left: 25px
 }
 
+.appBarSubTitle {
+  color: #A0A0A0;
+  font-weight: 400;
+  margin-left: 25px
+}
+
 @media (min-width: 768px) {
   .visible-md{
     display: inline-block;
@@ -55,7 +61,7 @@
 
 @media (min-width: 992px) {
   .center-content{
-    padding: 16px 16px 0 56px;
+    padding: 16px 16px 0 16px;
     position: relative;
   }
   .sidebar-content{
@@ -63,7 +69,7 @@
     width: 6%;
   }
   .main-content{
-    width: 94%;
+    width: 100%;
     float: right;
     background-color: #F8F8F8;
     flex: 1;
