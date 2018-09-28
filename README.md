@@ -1,6 +1,6 @@
-# QI Project Management #
+# Survey Project Management #
 
-A place for PMs to manage QI Projects
+A place for PMs to manage Survey Projects
 
 # Requirements #
 ```
@@ -12,9 +12,8 @@ A place for PMs to manage QI Projects
 ```
 nvm use 6.9.2
 npm install
-source etc/dev.env
+source etc/.env.local
 npm start
 
 ```
 Navigate to http://localhost:8888
-
