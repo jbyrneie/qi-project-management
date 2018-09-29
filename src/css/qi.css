@@ -18,6 +18,30 @@
   margin-top: 10px;
 }
 
+.bubble{
+  background: deepskyblue;
+  color: 'white';
+  border-radius: 8px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-right: 4px;
+  padding-left: 4px;
+  font-size: 16px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+.bubble-no-tasks{
+  background: #787985;
+  border-radius: 8px;
+  padding: 2px 4px 3px;
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  color: #fff;
+  font-size: 0.75em;
+}
+
+
 .appBar {
   padding-top: 28px;
   padding-bottom: 28px;

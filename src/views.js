@@ -1,7 +1,6 @@
 import React from 'react'
 import { Route } from 'mobx-router'
-import MyTasks from './components/MyTasks'
-import SurveyLead from './components/SurveyLead'
+import Home from './components/Home'
 
 let prefix=''
 if (process.env.NODE_ENV === 'production')
@@ -14,15 +13,11 @@ const gotoRouteIfLoggedIn = (store, views, runIfLoggedIn) => {
 const views = {
   home: new Route({
     path: `${prefix}/`,
-    component: <MyTasks/>
-  }),
-  surveyLead: new Route({
-    path: `${prefix}/surveyLead`,
-    component: <SurveyLead/>
+    component: <Home/>
   }),
   catchall:new Route({
     path:`${prefix}/:def`,
-    component: <MyTasks/>
+    component: <Home/>
   })
 };
 

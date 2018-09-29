@@ -3,25 +3,14 @@ import { observer, inject } from 'mobx-react'
 import AppBar from './AppBar'
 import SideBar from './SideBar'
 import MyTasks from './MyTasks'
-import _ from 'lodash'
-import views from '../views'
 
 // MUI
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import Grid from '@material-ui/core/Grid';
 
 // Custom Styles
 import '../css/qi.css'
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     const ele = document.getElementById('ipl-progress-indicator')
     if (ele) {
@@ -30,18 +19,6 @@ class Home extends Component {
   }
 
   render() {
-    const myTasks = this.props.store.qiStore.myTasks
-    const styles = theme => ({
-      root: {
-        flexGrow: 1,
-      },
-      paper: {
-        padding: theme.spacing.unit * 2,
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-      },
-    });
-
     return(
       <div className='container clearfix'>
         <Grid container spacing={0}>
@@ -50,9 +27,9 @@ class Home extends Component {
           </Grid>
           <Grid item xs={11}>
             <div className='main-content'>
-              <AppBar title='Surveys'/>
+              <AppBar title='Surveys' newSurvey={true}/>
                 <div className='center-content'>
-                  Home TBD
+                  <MyTasks />
                 </div>
             </div>
           </Grid>

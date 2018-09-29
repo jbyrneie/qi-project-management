@@ -1,3 +1,7 @@
+import green from '@material-ui/core/colors/green';
+import red from '@material-ui/core/colors/red';
+import grey from '@material-ui/core/colors/grey';
+
 export const commonButton ={
   style: {padding:'0 20px', height:'44px'},
   labelStyle: {fontWeight:'400', fontSize:'14px'}
@@ -24,14 +28,43 @@ export const defaultButton ={
 }
 
 export const newSurveyButton ={
-  backgroundColor: '#A9A9A9',
+  backgroundColor: green[500],
   color: 'white',
+  paddingTop: 10,
+  paddingBottom: 10,
+  paddingLeft:40,
+  paddingRight:40,
+}
+
+export const whiteButton ={
+  backgroundColor: 'white',
   style: {border:'1px solid #0076B4'},
   paddingTop: 10,
   paddingBottom: 10,
   paddingLeft:20,
   paddingRight:20,
+  marginLeft:40,
   hoverColor: 'yellow'
+}
+
+export const enabledButton ={
+  backgroundColor: red[500],
+  color: 'white',
+  style: {border:'1px solid #0076B4'},
+  paddingTop: 10,
+  paddingBottom: 10,
+  paddingLeft:40,
+  paddingRight:40
+}
+
+export const disabledButton ={
+  backgroundColor: grey[500],
+  color: 'white',
+  style: {border:'1px solid #0076B4'},
+  paddingTop: 10,
+  paddingBottom: 10,
+  paddingLeft:40,
+  paddingRight:40,
 }
 
 export const warningButton ={
