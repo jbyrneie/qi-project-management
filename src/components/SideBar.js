@@ -17,16 +17,16 @@ class SideBar extends Component {
           <Home color={this.props.myTasks?"primary":"disabled"} style={{fontSize:36, marginTop: 20, marginBottom:20}} onClick={navigate.bind(this, 'home')}/>
         </div>
         <div style={{textAlign:"center"}}>
-          <Search color={this.props.feasability?"primary":"disabled"} style={{fontSize:36, marginTop: 20, marginBottom:20}} />
+          <Search color={this.props.feasability?"primary":"disabled"} style={{fontSize:36, marginTop: 20, marginBottom:20}} onClick={navigate.bind(this, 'feasability')}/>
         </div>
         <div style={{textAlign:"center"}}>
-          <Keyboard color={this.props.programming?"primary":"disabled"} style={{fontSize:36, marginTop: 20, marginBottom:20}} />
+          <Keyboard color={this.props.programming?"primary":"disabled"} style={{fontSize:36, marginTop: 20, marginBottom:20}} onClick={navigate.bind(this, 'programming')}/>
         </div>
         <div style={{textAlign:"center"}}>
-          <ThumbUp color={this.props.fielding?"primary":"disabled"} style={{fontSize:36, marginTop: 20, marginBottom:20}} />
+          <ThumbUp color={this.props.fielding?"primary":"disabled"} style={{fontSize:36, marginTop: 20, marginBottom:20}} onClick={navigate.bind(this, 'fielding')}/>
         </div>
         <div style={{textAlign:"center"}}>
-          <PieChart color={this.props.reporting?"primary":"disabled"} style={{fontSize:36, marginTop: 20, marginBottom:20}} />
+          <PieChart color={this.props.reporting?"primary":"disabled"} style={{fontSize:36, marginTop: 20, marginBottom:20}} onClick={navigate.bind(this, 'reporting')}/>
         </div>
       </div>
     )
