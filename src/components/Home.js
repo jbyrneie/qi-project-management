@@ -3,6 +3,12 @@ import { observer, inject } from 'mobx-react'
 import AppBar from './AppBar'
 import SideBar from './SideBar'
 import MyTasks from './MyTasks'
+import ProgrammingTasks from './ProgrammingTasks'
+import FeasabilityTasks from './FeasabilityTasks'
+import HomeDefault from './HomeDefault'
+import HomeByPerson from './HomeByPerson'
+import _ from 'lodash'
+import {STATUS} from '../lib/utils'
 
 // MUI
 import Grid from '@material-ui/core/Grid';
@@ -30,6 +36,7 @@ class Home extends Component {
               <AppBar title='Surveys' newSurvey={true}/>
                 <div className='center-content'>
                   <MyTasks />
+                  <HomeDefault/>
                 </div>
             </div>
           </Grid>
