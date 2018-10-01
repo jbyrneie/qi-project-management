@@ -1,17 +1,13 @@
 import React from 'react';
-import { observer, inject } from 'mobx-react'
-import PropTypes from 'prop-types';
-import deburr from 'lodash/deburr';
 import Autosuggest from 'react-autosuggest';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
-import Popper from '@material-ui/core/Popper';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from './AppBar'
-import SideBar from './SideBar'
+
 
 function renderInputComponent(inputProps) {
   const { classes, inputRef = () => {}, ref, ...other } = inputProps;
