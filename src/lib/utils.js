@@ -8,6 +8,7 @@ import red from '@material-ui/core/colors/red';
 import teal from '@material-ui/core/colors/teal';
 import orange from '@material-ui/core/colors/orange';
 import views from  '../views'
+import _ from 'lodash'
 
 function _getColorFromStatus(status) {
   switch(status) {
@@ -115,4 +116,12 @@ export function taskTitle(title, num) {
       <span className="bubble">{num}</span>
     </span>
   )
+}
+
+export function asigneesAbbreviation(asignees) {
+  let abbreviations = ''
+  _.forEach(asignees, function(asignee) {//abbreviations += asignee?asignee.first_name[0]:null + asignee?asignee.last_name[0]:null + ','
+    abbreviations += `${asignee&&asignee.first_name?asignee.first_name[0]:null}${asignee&&asignee.last_name?asignee.last_name[0]:null},`
+  });
+  return abbreviations.substring(0, abbreviations.length - 1)
 }
