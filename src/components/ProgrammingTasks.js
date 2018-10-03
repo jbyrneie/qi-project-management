@@ -69,7 +69,7 @@ class ProgrammingTasks extends Component {
                 this.props.summary?
                   <TableRow key={index} onClick={surveyDetails.bind(this, index, tasks)}>
                     <TableCell style={{color: '#A0A0A0'}}>{task.project}</TableCell>
-                    <TableCell style={{color: '#A0A0A0'}}>{asigneesAbbreviation(task.status.asignees)}</TableCell>
+                    <TableCell style={{color: '#A0A0A0'}}>{asigneesAbbreviation(task.asignees)}</TableCell>
                     <TableCell style={{color: '#A0A0A0'}}>{daysLeft(task.dueDate)} day(s) - {moment(task.dueDate).format("MMMM Do")}</TableCell>
                     <TableCell style={{color: '#A0A0A0'}}>{daysDuration(task.createDate)}</TableCell>
                     <TableCell style={{color: '#A0A0A0'}}>${numeral(task.revenue).format('0,0')}</TableCell>

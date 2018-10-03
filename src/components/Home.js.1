@@ -1,0 +1,87 @@
+import React, { Component } from 'react'
+import { observer, inject } from 'mobx-react'
+import AppBar from './AppBar'
+import SideBar from './SideBar'
+import MyTasks from './MyTasks'
+import ProgrammingTasks from './ProgrammingTasks'
+import FeasabilityTasks from './FeasabilityTasks'
+import HomeDefault from './HomeDefault'
+import HomeByPerson from './HomeByPerson'
+import _ from 'lodash'
+import {STATUS} from '../lib/utils'
+
+// MUI
+import Grid from '@material-ui/core/Grid';
+import { Search } from '@material-ui/icons'
+
+// Custom Styles
+import '../css/qi.css'
+
+class Home extends Component {
+  componentWillMount() {
+    const ele = document.getElementById('ipl-progress-indicator')
+    if (ele) {
+      ele.outerHTML = ''
+    }
+  }
+
+  _handleChange(event) {
+
+  }
+
+  render() {
+    const styles = theme => ({
+      searchSection: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+      },
+      searchIcon: {
+          padding: 10,
+      },
+      input: {
+          flex: 1,
+          paddingTop: 10,
+          paddingRight: 10,
+          paddingBottom: 10,
+          paddingLeft: 0,
+          backgroundColor: '#fff',
+          color: '#424242',
+      },
+    })
+/*
+    margin-bottom: 20px;
+    height: 40px;
+    padding-left: 10px;
+    font-size: 18px;
+*/
+
+    return(
+      <div className='container clearfix'>
+        <Grid container spacing={0}>
+          <Grid item xs={1}>
+            <SideBar myTasks={true}/>
+          </Grid>
+          <Grid item xs={11}>
+            <div className='main-content'>
+              <AppBar title='Surveys' newSurvey={true}/>
+                <div className='center-content'>
+                  <div className="inner-addon left-addon">
+                    <i className="glyphicon glyphicon-search"></i>
+                    <input type="text" className="form-control" style={{fontSize:18, height: 40, marginBottom:20, paddingLeft:10}} placeholder="Filter by Client, ID, Title" />
+                  </div>
+
+                  <MyTasks />
+                  <HomeByPerson/>
+                </div>
+            </div>
+          </Grid>
+        </Grid>
+      </div>
+    )
+  }
+}
+
+export default inject((allStores) => ({ ...allStores }))(observer(Home))

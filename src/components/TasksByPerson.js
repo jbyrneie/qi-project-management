@@ -28,6 +28,7 @@ class TasksbyPerson extends Component {
   }
 
   render() {
+    console.log('TasksByPerson: ', JSON.stringify(this.props.tasks))
     const tasks = this.props.tasks
     return(
       <Card style={{marginBottom:30}}>

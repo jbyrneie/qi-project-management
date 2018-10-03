@@ -18,19 +18,52 @@ class HomeByPerson extends Component {
     }
   }
 
-  render() {
-    const tasks = this.props.store.qiStore.myTasks
+  _getTasksByPerson(tasks, person) {
+    let personTasks = []
+    tasks.filter(function(t) {
+      const asignee = t.asignees.filter(function(a) {
+        //console.log('a: ', JSON.stringify(a));
+        const same = (a.first_name === person.first_name && a.last_name === person.last_name)
+        //console.log('same: ',same);
+        return same===true?a:null
+      })
+      //console.log('asignee: ', JSON.stringify(asignee));
+      if (asignee.length > 0)
+        personTasks.push(t)
+    });
 
-    return(
-      /*
-      tasks.map((task, index) => (
-        <div>xx</div>
-      ))
-      */
-      tasks.map((task, index) => (
-        <TasksByPerson person='Jack Byrne' tasks={tasks} />
-      ))
-    )
+    //console.log('data: ', JSON.stringify(data));
+    return personTasks
+  }
+
+  _getPeople(tasks) {
+    var asignees = [];
+    for (var i = 0; i < tasks.length; ++i) {
+      for (var j = 0; j < tasks[i].asignees.length; ++j)
+        asignees.push(tasks[i].asignees[j]);
+    }
+
+    let uniques = []
+    _.forEach(asignees, function(person) {
+      if (_.find(uniques, person) == null) {
+        uniques.push(person);
+      }
+    })
+
+    return uniques
+  }
+
+  render() {
+    console.log('HomeByPerson');
+    const tasks = this.props.store.qiStore.myTasks
+    const people = this._getPeople(tasks)
+
+    return people.map(p => {
+      const personTasks = this._getTasksByPerson(tasks, p)
+      return (
+        <TasksByPerson person={p.first_name + ' ' + p.last_name} tasks={personTasks}/>
+      )
+    })
   }
 }
 
