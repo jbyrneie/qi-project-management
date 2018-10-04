@@ -8,7 +8,7 @@ import AppBar from './AppBar'
 import SideBar from './SideBar'
 import Notification from './Notification'
 import TypeAhead from './TypeAhead'
-import { getClientSuggestions, getContactSuggestions } from '../lib/suggestions'
+import { getClientSuggestions, getContactSuggestions, getRMSuggestions } from '../lib/suggestions'
 import { enabledButton, disabledButton } from '../styles/Buttons'
 
 // Custom Styles
@@ -28,7 +28,7 @@ class Tabs extends React.Component {
       description: '',
       suggestions: [],
       priority: 'Medium',
-      valid: false,
+      valid: true,
       leadSaved: false,
       snackBarOpen: true
     };
@@ -49,6 +49,11 @@ class Tabs extends React.Component {
   _getContactSuggestions(value) {
     console.log('_getContactSuggestions: ', value);
     return getContactSuggestions(value)
+  }
+
+  _getRMSuggestions(value) {
+    console.log('_getRMSuggestions: ', value);
+    return getRMSuggestions(value)
   }
 
   _handleChange(field, event) {
@@ -115,8 +120,8 @@ class Tabs extends React.Component {
   }
 
   _save(event) {
-    console.log('save called: ', this.state.client_contact);
-    if (this.state.valid) {
+    console.log('save called: ', this.state.survey_manager, this.state.valid);
+    if (this._validate()) {
       console.log('I can save....');
       this.props.store.qiStore.saveSurveyLead({client_name: this.state.client_name,
                                                client_contact: this.state.client_contact,
@@ -127,7 +132,7 @@ class Tabs extends React.Component {
                                                description: this.state.description
                                              })
       this.setState({leadSaved:true})
-    }
+    } else this.setState({valid:false})
   }
 
   _closeSnackBar = (event) => {
@@ -198,7 +203,7 @@ class Tabs extends React.Component {
                   <div className={styles.root}>
                     <Grid container spacing={24}>
                       <Grid item xs={12} style={{fontSize:18, fontWeight:900}}>Client Information</Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={6} style={{backgroundColor: !this.state.valid && this.state.client_name.length===0?'yellow':null}}>
                         <TypeAhead
                           required
                           label='Client Name'
@@ -208,7 +213,7 @@ class Tabs extends React.Component {
                           getSuggestions={this._getClientSuggestions.bind(this)}
                         />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={6} style={{backgroundColor: !this.state.valid && this.state.client_contact.length===0?'yellow':null}}>
                         <TypeAhead
                           required
                           label='Client Contact'
@@ -218,28 +223,28 @@ class Tabs extends React.Component {
                           getSuggestions={this._getContactSuggestions.bind(this)}
                         />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={6} style={{backgroundColor: !this.state.valid && this.state.research_manager.length===0?'yellow':null}}>
                         <TypeAhead
                           required
                           label='Research Manager'
                           placeholder='Start typing Research Manager'
                           value={this.state.research_manager}
                           handle_change={this._handleResearchManagerChange.bind(this)}
-                          getSuggestions={this._getClientSuggestions.bind(this)}
+                          getSuggestions={this._getRMSuggestions.bind(this)}
                         />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={6} style={{backgroundColor: !this.state.valid && this.state.survey_manager.length===0?'yellow':null}}>
                         <TypeAhead
                           required
                           label='Survey Manager'
                           placeholder='Start typing Survey Manager'
                           value={this.state.survey_manager}
                           handle_change={this._handleSurveyManagerChange.bind(this)}
-                          getSuggestions={this._getClientSuggestions.bind(this)}
+                          getSuggestions={this._getRMSuggestions.bind(this)}
                         />
                       </Grid>
                       <Grid item xs={12} style={{fontSize:18, fontWeight:900}}>Survey Information</Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={6} style={{backgroundColor: !this.state.valid && this.state.title.length===0?'yellow':null}}>
                         <TextField
                           required
                           label="Project Title"
@@ -270,7 +275,7 @@ class Tabs extends React.Component {
                           ))}
                         </TextField>
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={12} style={{backgroundColor: !this.state.valid && this.state.description.length===0?'yellow':null}}>
                         <TextField
                           required
                           id="outlined-textarea"
@@ -284,13 +289,13 @@ class Tabs extends React.Component {
                         />
                       </Grid>
                       <Grid item xs={12} style={{marginBottom:20}}>
-                        <Button variant="contained" style={this.state.valid?enabledButton:disabledButton} onClick={this._save.bind(this)}>
+                        <Button variant="contained" style={enabledButton} onClick={this._save.bind(this)}>
                           SAVE
                         </Button>
                       </Grid>
                     </Grid>
                     {this.state.leadSaved?
-                      <Notification variant="warning" message="I loves React" open={true}/>
+                      <Notification variant="warning" message="I love React" open={true}/>
                       :
                       null
                     }
