@@ -1,40 +1,38 @@
 import deburr from 'lodash/deburr';
 
 const client_suggestions = [
-  { label: 'Afghanistan' },
-  { label: 'Aland Islands' },
-  { label: 'Albania' },
-  { label: 'Algeria' },
-  { label: 'American Samoa' },
-  { label: 'Andorra' },
-  { label: 'Angola' },
-  { label: 'Anguilla' },
-  { label: 'Antarctica' },
-  { label: 'Antigua and Barbuda' },
-  { label: 'Argentina' },
-  { label: 'Armenia' },
-  { label: 'Aruba' },
-  { label: 'Australia' },
-  { label: 'Austria' },
-  { label: 'Azerbaijan' },
-  { label: 'Bahamas' },
-  { label: 'Bahrain' },
-  { label: 'Bangladesh' },
-  { label: 'Barbados' },
-  { label: 'Belarus' },
-  { label: 'Belgium' },
-  { label: 'Belize' },
-  { label: 'Benin' },
-  { label: 'Bermuda' },
-  { label: 'Bhutan' },
-  { label: 'Bolivia, Plurinational State of' },
-  { label: 'Bonaire, Sint Eustatius and Saba' },
-  { label: 'Bosnia and Herzegovina' },
-  { label: 'Botswana' },
-  { label: 'Bouvet Island' },
-  { label: 'Brazil' },
-  { label: 'British Indian Ocean Territory' },
-  { label: 'Brunei Darussalam' },
+  { label: 'A1 Mountain Funds' },
+  { label: 'A2 Mountain Funds' },
+  { label: 'A3 Mountain Funds' },
+  { label: 'A4 Mountain Funds' },
+  { label: 'A5 Mountain Funds' },
+  { label: 'B1 Mountain Funds' },
+  { label: 'b2 Mountain Funds' },
+  { label: 'b3 Mountain Funds' },
+  { label: 'Blue Mountain Funds' },
+  { label: 'Clear Mountain Funds' },
+  { label: 'Dark Mountain Funds' },
+  { label: 'Every Mountain Funds' },
+  { label: 'Fine Mountain Funds' },
+  { label: 'Glorious Mountain Funds' },
+  { label: 'High Mountain Funds' },
+  { label: 'Ignite Mountain Funds' },
+  { label: 'Java Mountain Funds' },
+  { label: 'Kape Mountain Funds' },
+  { label: 'Long Mountain Funds' },
+  { label: 'Mountain Funds' },
+  { label: 'New Mountain Funds' },
+  { label: 'Old Mountain Funds' },
+  { label: 'Pure Mountain Funds' },
+  { label: 'Quiet Mountain Funds' },
+  { label: 'Real Mountain Funds' },
+  { label: 'Silent Mountain Funds' },
+  { label: 'True Mountain Funds' },
+  { label: 'Up Mountain Funds' },
+  { label: 'Very Mountain Funds' },
+  { label: 'White Mountain Funds' },
+  { label: 'Xylon Mountain Funds' },
+  { label: 'Zebra Mountain Funds' },
 ];
 
 const contact_suggestions = [
@@ -46,6 +44,17 @@ const contact_suggestions = [
   { label: 'Jack' },
   { label: 'James' },
   { label: 'John' },
+];
+
+const rm_suggestions = [
+  { label: 'Adam RM' },
+  { label: 'Andrew RM' },
+  { label: 'Alfonsis RM' },
+  { label: 'Brian RM' },
+  { label: 'Brendan RM' },
+  { label: 'Jack RM' },
+  { label: 'James RM' },
+  { label: 'John RM' },
 ];
 
 export function getClientSuggestions(value) {
@@ -79,6 +88,26 @@ export function getContactSuggestions(value) {
   return inputLength === 0
     ? []
     : contact_suggestions.filter(suggestion => {
+        const keep =
+          count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
+
+        if (keep) {
+          count += 1;
+        }
+
+        return keep;
+      });
+}
+
+export function getRMSuggestions(value) {
+  console.log('getRMSuggestions: ', value);
+  const inputValue = deburr(value.trim()).toLowerCase();
+  const inputLength = inputValue.length;
+  let count = 0;
+
+  return inputLength === 0
+    ? []
+    : rm_suggestions.filter(suggestion => {
         const keep =
           count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
 
