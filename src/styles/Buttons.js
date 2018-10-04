@@ -40,7 +40,7 @@ export const whiteButton ={
   backgroundColor: 'white',
   style: {border:'1px solid #0076B4'},
   paddingTop: 10,
-  paddingBottom: 10,
+  paddingBottom: 5,
   paddingLeft:20,
   paddingRight:20,
   marginLeft:40,
