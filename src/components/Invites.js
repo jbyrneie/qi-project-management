@@ -42,13 +42,13 @@ class Invites extends React.Component {
       ele.outerHTML = ''
     }
     const survey = this.props.store.qiStore.selectedSurvey
-    this.setState({survey: survey, filteredSurvey: survey})
+    this.setState({survey: JSON.parse(JSON.stringify(survey)), filteredSurvey: JSON.parse(JSON.stringify(survey))})
   }
 
   componentDidMount() {
     console.log('Invites DidMount');
     const survey = this.props.store.qiStore.selectedSurvey
-    this.setState({survey: survey, filteredSurvey: survey})
+    this.setState({survey: JSON.parse(JSON.stringify(survey)), filteredSurvey: JSON.parse(JSON.stringify(survey))})
   }
 
   componentWillReceiveProps(props) {
@@ -76,6 +76,7 @@ class Invites extends React.Component {
   }
 
   _filterPopulation(cms) {
+    console.log('_filterPopulation: ', JSON.stringify(cms));
     const filtered = _.uniqBy(cms, 'title');
     let population = []
     _.forEach(filtered, function(cm) {
@@ -85,6 +86,7 @@ class Invites extends React.Component {
   }
 
   _filterStatus(cms) {
+    console.log('_filterStatus: ', JSON.stringify(cms));
     const filtered = _.uniqBy(cms, 'status');
     let statuses = []
     _.forEach(filtered, function(cm) {
@@ -94,52 +96,51 @@ class Invites extends React.Component {
   }
 
   _filterCMByPopulation(survey, event) {
-    let filtered = _.cloneDeep(survey)
-    console.log('_filterCMByPopulation ', JSON.stringify(survey), event.target.value);
-    console.log('b4 this.state.survey: ', JSON.stringify(this.state.survey));
+    let filtered
 
     let filterOptions = {}
-    if (event.target.value!=='All Populations')
+    if (event.target.value!=='All Populations') {
       filterOptions.title = event.target.value
-    if (this.state.statusFilter !== 'All Statuses')
+      filtered = survey
+    } else {
+      // _.cloneDeep() throws a kaniption if used with Mobx :-()
+      filtered = JSON.parse(JSON.stringify(this.state.survey));
+    }
+
+    if (this.state.statusFilter!=='All Statuses')
       filterOptions.status = this.state.statusFilter
 
-    filtered.cms = _.filter(this.state.survey.cms, filterOptions)
-    //filtered.cms = _.filter(filtered.cms, { title: filter})
-    console.log('filtered: ', JSON.stringify(survey));
-    /*
-    let cms = _.filter(filtered.cms, { title: filter})
-    console.log('filtered CMs: ', JSON.stringify(cms));
-    */
+    const cms = _.filter(filtered.cms, filterOptions)
+    filtered.cms = cms
 
-    console.log('af1 this.state.survey: ', JSON.stringify(this.state.survey));
     this.setState({filteredSurvey: filtered, populationFilter: event.target.value})
-    console.log('af2 this.state.survey: ', JSON.stringify(this.state.survey));
   }
 
   _filterCMByStatus(survey, event) {
-    let filtered = _.cloneDeep(survey)
+    let filtered
+
     let filterOptions = {}
-    if (event.target.value!=='All Statuses')
+    if (event.target.value!=='All Statuses') {
       filterOptions.status = event.target.value
+      filtered = survey
+    } else {
+      // _.cloneDeep() throws a kaniption if used with Mobx :-()
+      filtered = JSON.parse(JSON.stringify(this.state.survey));
+    }
+
     if (this.state.populationFilter !== 'All Populations')
       filterOptions.title = this.state.populationFilter
 
-    filtered.cms = _.filter(this.state.survey.cms, filterOptions)
-
+    const cms = _.filter(filtered.cms, filterOptions)
+    filtered.cms = cms
     this.setState({filteredSurvey: filtered, statusFilter: event.target.value})
   }
 
-
   render() {
     const survey = this.state.filteredSurvey
-    console.log('survey...: ', JSON.stringify(survey));
-    console.log('render state survey...: ', JSON.stringify(this.state.survey));
     const population = this._filterPopulation(survey.cms)
     const statuses = this._filterStatus(survey.cms)
     const createdOn = `Created on ${moment(survey.createDate).format("MMMM Do YYYY")}`
-
-    console.log('render invites population: ', JSON.stringify(population));
 
     const styles = theme => ({
       root: {
@@ -194,27 +195,12 @@ class Invites extends React.Component {
                   <SurveyDetailsMenu tab='invites'/>
                   <div style={{marginLeft:40, marginTop:50, marginBottom:40}}>
                     <div style={{float:'left'}}>
-                      <TextField
-                        variant="contained"
-                        select
-                        styles={{margin: 0}}
-                        value={this.state.populationFilter}
-                        onChange={this._filterCMByPopulation.bind(this, survey)}
-                        SelectProps={{
-                          MenuProps: {
-                            className: styles.menu,
-                          },
-                        }}
-                      >
-                        <MenuItem key='All Populations' value='All Populations'>
-                          All Populations
-                        </MenuItem>
-                        {population.map(option => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                          </MenuItem>
+                      <select onChange={this._filterCMByPopulation.bind(this, survey)} style={{display: 'inline-block', height: 40, fontSize: 18, backgroundColor: '#fff', paddingLeft:5, paddingRight:5, border: '1px solid #ccc', borderRadius: 4}}>
+                        <option value='All Populations' selected = {this.state.populationFilter==='All Populations'?'selected':null}>All Populations</option>
+                        {population.map((option, index) => (
+                          <option key={index} value={option.value} selected = {option.value === this.state.populationFilter?'selected':null}>{option.value}</option>
                         ))}
-                      </TextField>
+                      </select>
                       <Button variant="contained" style={whiteButton} onClick={this._inviteCM.bind(this)}>
                         INVITE
                       </Button>
@@ -230,37 +216,18 @@ class Invites extends React.Component {
                     </div>
                     <div style={{float:'right'}}>
                       <span style={{fontWeight: '900', fontSize: 18, color:'black', marginRight:20}}>{survey.cms.length} Invites</span>
-                      <TextField
-                        variant="contained"
-                        select
-                        styles={{margin: 0}}
-                        value={this.state.statusFilter}
-                        onChange={this._filterCMByStatus.bind(this, survey)}
-                        SelectProps={{
-                          MenuProps: {
-                            className: styles.menu,
-                          },
-                        }}
-                      >
-                        <MenuItem style={{paddingLeft:10, paddingRight:20}} key='All Statuses' value='All Statuses'>
-                          All Statuses
-                        </MenuItem>
-                        {statuses.map(option => (
-                          <MenuItem style={{paddingLeft:10, paddingRight:20}} key={option.value} value={option.value}>
-                            {option.label}
-                          </MenuItem>
+                      <select onChange={this._filterCMByStatus.bind(this, survey)} style={{display: 'inline-block', height: 40, fontSize: 18, backgroundColor: '#fff', paddingLeft:5, paddingRight:5, border: '1px solid #ccc', borderRadius: 4}}>
+                        <option value='All Statuses' selected = {this.state.statusFilter==='All Statuses'?'selected':null}>All Statuses</option>
+                        {statuses.map((option, index) => (
+                          <option key={index} value={option.value} selected = {option.value === this.state.statusFilter?'selected':null}>{option.value}</option>
                         ))}
-                      </TextField>
+                      </select>
                     </div>
                   </div>
                   <div style={{marginTop:60, color:'white'}}>x</div>
                   <div style={{marginTop: 60}}>
-                    <Table selectable={true}>
-                      <TableHead style={{fontWeight: '900'}}
-                        displaySelectAll={false}
-                        adjustForCheckbox={false}
-                        enableSelectAll={false}
-                      >
+                    <Table>
+                      <TableHead style={{fontWeight: '900'}}>
                         <TableRow>
                           <TableCell style={{fontWeight: '900', color:'black'}}><Checkbox style={styles.checkbox}/></TableCell>
                           <TableCell style={{fontWeight: '900', color:'black'}}>LOCATION</TableCell>
@@ -270,11 +237,7 @@ class Invites extends React.Component {
                           <TableCell style={{fontWeight: '900', color:'black'}}>INVITE DATE</TableCell>
                         </TableRow>
                       </TableHead>
-                      <TableBody
-                        displayRowCheckbox={false}
-                        deselectOnClickaway={true}
-                        showRowHover={true}
-                      >
+                      <TableBody>
                         {survey.cms.map((cm, index) => (
                           <TableRow key={index}>
                             <TableCell style={{color: '#A0A0A0'}}>
