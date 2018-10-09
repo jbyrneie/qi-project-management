@@ -107,7 +107,7 @@ export function surveyDetails(index, surveys, event) {
   console.log('surveyDetails: %s %s', index, JSON.stringify(surveys[index]));
   this.props.store.qiStore.setSelectedSurvey(surveys[index])
   const {router: {goTo}} = this.props.store
-  goTo(views.invites, {}, this.props.store.selectedSurvey)
+  goTo(views.surveyDetails, {}, this.props.store.selectedSurvey)
 }
 
 export function taskTitle(title, num) {
