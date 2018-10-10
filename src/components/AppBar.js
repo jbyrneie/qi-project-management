@@ -33,7 +33,7 @@ class AppBar extends Component {
             <div className='navBar'>
               <div className='appBarButton'>
                 <Button variant="contained" style={newSurveyButton} onClick={this._surveyLead.bind(this)}>
-                  New Survey
+                  New Lead
                 </Button>
               </div>
             </div>

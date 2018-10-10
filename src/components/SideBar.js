@@ -6,7 +6,7 @@ import {navigate} from '../lib/utils'
 import '../css/qi.css'
 
 // MUI
-import { Home, PieChart, Search, Keyboard, ThumbUp } from '@material-ui/icons'
+import { Home, PieChart, Search, Keyboard, ThumbUp, Store } from '@material-ui/icons'
 
 class SideBar extends Component {
   render() {
@@ -27,6 +27,9 @@ class SideBar extends Component {
         </div>
         <div style={{textAlign:"center"}}>
           <PieChart color={this.props.reporting?"primary":"disabled"} style={{fontSize:36, marginTop: 20, marginBottom:20}} onClick={navigate.bind(this, 'reporting')}/>
+        </div>
+        <div style={{textAlign:"center"}}>
+          <Store color={this.props.vendors?"primary":"disabled"} style={{fontSize:36, marginTop: 20, marginBottom:20}} onClick={navigate.bind(this, 'vendors')}/>
         </div>
       </div>
     )
